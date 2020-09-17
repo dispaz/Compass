@@ -7,8 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.compass.R
+import com.compass.di.scopes.ActivityScoped
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class CompassFragment : Fragment() {
+@ActivityScoped
+class CompassFragment @Inject constructor() : DaggerFragment() {
 
     companion object {
         fun newInstance() = CompassFragment()

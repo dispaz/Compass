@@ -11,6 +11,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 
 @AppScoped
 @Component(modules = [AppModule::class
+                    , ActivityBindingModule::class
                     , CompassRepositoryModule::class
                     , AndroidSupportInjectionModule::class])
 interface AppComponent : AndroidInjector<CompassApplication>{
