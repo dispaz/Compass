@@ -1,5 +1,9 @@
 package com.compass.data.source
 
-class CompassRepository {
+import com.inspiringteam.reactivecompass.di.scopes.AppScoped
+import javax.inject.Inject
+
+@AppScoped
+class CompassRepository @Inject constructor() {
 
 }

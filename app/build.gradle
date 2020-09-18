@@ -50,8 +50,8 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     // RxJava
-//    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rx_android_version"
-//    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava_version"
+    implementation "io.reactivex.rxjava3:rxandroid:$rootProject.rxandroid_version"
+    implementation "io.reactivex.rxjava3:rxjava:$rootProject.rxjava_version"
 
     // Reactive location
     implementation "com.patloew.rxlocation:rxlocation:$rootProject.reactive_location_version"
