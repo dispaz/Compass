@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.FlowableOnSubscribe
 import java.lang.Exception
-import java.util.logging.Handler
+import android.os.Handler
 
 class Sensors constructor(context: Context) {
     private val sensorManager: SensorManager =
@@ -34,27 +34,62 @@ class Sensors constructor(context: Context) {
 
         val sensor = sensorManager.getDefaultSensor(sensorType)
 
-        return Flowable.create(FlowableOnSubscribe<SensorEvent>
-        {
-            emitter ->
+        return Flowable.create(
+            FlowableOnSubscribe<SensorEvent>
+            { emitter ->
+                val listener = object : SensorEventListener {
+                    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onSensorChanged(event: SensorEvent?) {
+                        if (emitter != null) {
+                            emitter!!.onNext(event)
+                        }
+                    }
+                }
+
+                if (handler != null) {
+                    sensorManager.registerListener(listener, sensor, samplingPeriod, handler)
+                } else {
+                    sensorManager.registerListener(listener, sensor, samplingPeriod)
+                }
+            }, strategy
+        )
+    }
+
+    fun observeSensors(
+        sensorType1: Int, sensorType2: Int, samplingPeriod: Int,
+        handler: Handler?, strategy: BackpressureStrategy = BackpressureStrategy.BUFFER
+    ): Flowable<SensorEvent> {
+        if (!sensorAvailable(sensorType1) || !sensorAvailable(sensorType2)) {
+            return Flowable.error(Exception("${sensorType1} and ${sensorType2} sensors are not available"))
+        }
+
+        val sensor1 = sensorManager.getDefaultSensor(sensorType1)
+        val sensor2 = sensorManager.getDefaultSensor(sensorType2)
+
+        return Flowable.create(FlowableOnSubscribe<SensorEvent> { emitter ->
             val listener = object : SensorEventListener {
                 override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-                    TODO("Not yet implemented")
+                    //TODO("Not yet implemented")
                 }
 
                 override fun onSensorChanged(event: SensorEvent?) {
-                    if (emitter != null){
+                    if (emitter != null) {
                         emitter!!.onNext(event)
                     }
                 }
             }
 
-            if(handler != null){
-                sensorManager.registerListener(listener, sensor, samplingPeriod)
+            if (handler != null) {
+                sensorManager.registerListener(listener, sensor1, samplingPeriod)
+                sensorManager.registerListener(listener, sensor2, samplingPeriod)
+            } else {
+                sensorManager.registerListener(listener, sensor1, samplingPeriod, handler)
+                sensorManager.registerListener(listener, sensor2, samplingPeriod, handler)
             }
-            else{
-                sensorManager.registerListener(listener, sensor, samplingPeriod)
-            }
+
         }, strategy)
     }
 }

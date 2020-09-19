@@ -5,13 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/compass_fragment_padding"
     tools:context=".ui.compass.CompassFragment">
 
     <ImageView
-        android:layout_width="280dp"
-        android:layout_height="300dp"
+        android:id="@+id/compass"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:src="@drawable/compass"
         android:layout_centerInParent="true"/>
-
+    <TextView
+        android:id="@+id/compassDeegree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="50sp"
+        android:text="250"
+        android:textAlignment="center"
+        android:textColor="#000"
+        />
 </RelativeLayout>

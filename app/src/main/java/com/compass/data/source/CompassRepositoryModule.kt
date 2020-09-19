@@ -1,12 +1,18 @@
 package com.compass.data.source
 
+import com.compass.data.source.orientation.CompassOrientationSource
+import com.compass.data.source.orientation.CompassOrientationSourceModule
+import com.compass.data.source.orientation.OrientationDataSource
+import com.compass.sensors.Sensors
 import com.inspiringteam.reactivecompass.di.scopes.AppScoped
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = arrayOf(CompassOrientationSourceModule::class))
 class CompassRepositoryModule {
     @Provides
     @AppScoped
-    fun testFunc(): String{ return "test"}
+    internal fun provideCompassOrientationSource(sensors: Sensors): OrientationDataSource{
+        return CompassOrientationSource(sensors)
+    }
 }
