@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="compass_fragment_padding">20dp</dimen>
+    <dimen name="location_text_size">15sp</dimen>
+    <dimen name="static_dynamic_text_margin">5dp</dimen>
+    <dimen name="compass_height">400dp</dimen>
+    <dimen name="compas_degree_text_size">50sp</dimen>
+    <dimen name="btn_destination_margin">10dp</dimen>
 </resources>

@@ -55,19 +55,24 @@ class CompassFragment @Inject constructor() : DaggerFragment() {
         ))
 
         subscriptions.add(viewModel.getLocationUiModel().subscribe(
-            { uiModel -> this.updateLocation(uiModel)},
-            { showErrorMessage("error getting location")}
+            { uiModel -> this.updateLocation(uiModel) },
+            { showErrorMessage("error getting location") }
         ))
     }
 
     private fun updateDirections(directionsUiModel: DirectionsUiModel) {
         val compassOrientation = directionsUiModel.compassOrientation
-        rotateDirectionView(compassOrientation.polesDirection, compassOrientation.lastPolesDirection, binding.compass)
+        rotateDirectionView(
+            compassOrientation.polesDirection,
+            compassOrientation.lastPolesDirection,
+            binding.compass
+        )
         binding.compassDeegree.text = "${compassOrientation.polesDirection.toInt()}°"
     }
 
-    private fun updateLocation(locationUiModel: LocationUiModel){
-        Log.d("location", "${locationUiModel.location.latitude}, ${locationUiModel.location.longtitude} ${Calendar.getInstance()}")
+    private fun updateLocation(locationUiModel: LocationUiModel) {
+        binding.latTextView.text = "${locationUiModel.location.latitude}"
+        binding.lngTextView.text = "${locationUiModel.location.longtitude}"
     }
 
     fun showErrorMessage(msg: String) {
@@ -78,11 +83,12 @@ class CompassFragment @Inject constructor() : DaggerFragment() {
         val anim = RotateAnimation(
             -currentAzimuth, -azimuth,
             Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
-        )
+        ).apply {
+            duration = 100
+            repeatCount = 0
+            fillAfter = true
+        }
 
-        anim.duration = 100
-        anim.repeatCount = 0
-        anim.fillAfter = true
         targetView.startAnimation(anim)
     }
 
