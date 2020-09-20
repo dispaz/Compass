@@ -2,4 +2,5 @@
     <string name="app_name">CompassApp</string>
     <string name="default_location_string">0.0</string>
     <string name="compass_default_degree">250</string>
+    <string name="title_activity_destination_map_picker">Map</string>
 </resources>
