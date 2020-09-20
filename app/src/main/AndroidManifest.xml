@@ -24,8 +24,8 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.compass.destinationpicker.DestinationMapPickerActivity"
-            android:label="@string/title_activity_destination_map_picker"></activity>
+            android:name=".ui.destinationpicker.DestinationMapPickerActivity"
+            android:label="@string/title_activity_destination_map_picker" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

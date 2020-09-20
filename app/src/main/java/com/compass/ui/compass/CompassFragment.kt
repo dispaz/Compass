@@ -2,24 +2,20 @@ package com.compass.ui.compass
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.Toast
-import com.compass.R
 import com.compass.databinding.CompassFragmentBinding
 import com.compass.di.scopes.ActivityScoped
-import com.compass.ui.compass.destinationpicker.DestinationMapPickerActivity
+import com.compass.ui.destinationpicker.DestinationMapPickerActivity
 import com.compass.ui.compass.models.DirectionsUiModel
 import com.compass.ui.compass.models.LocationUiModel
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.compass_fragment.*
-import java.time.LocalDateTime
-import java.util.*
 import javax.inject.Inject
 
 @ActivityScoped

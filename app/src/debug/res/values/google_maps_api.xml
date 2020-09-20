@@ -9,7 +9,7 @@
     You can also add your credentials to an existing key, using these values:
 
     Package name:
-    com.compass.ui.compass.destinationpicker
+    com.compass.ui.destinationpicker
 
     SHA-1 certificate fingerprint:
     E0:82:37:5A:8B:CB:15:6B:1F:2D:00:7C:A6:97:B0:F7:6F:A6:94:3B
@@ -20,5 +20,5 @@
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCe_7yFOHvL6G8m6aIAXEM__pZnzwGvCHM</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBp8KOW2mH5a8nts44wQSIYlA5172EfW94</string>
 </resources>

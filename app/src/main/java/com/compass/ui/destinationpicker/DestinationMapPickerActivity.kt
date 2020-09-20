@@ -1,4 +1,4 @@
-package com.compass.ui.compass.destinationpicker
+package com.compass.ui.destinationpicker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
