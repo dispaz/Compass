@@ -7,11 +7,11 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.icu.number.NumberFormatter
-import io.reactivex.rxjava3.core.BackpressureStrategy
-import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.FlowableOnSubscribe
 import java.lang.Exception
 import android.os.Handler
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.FlowableOnSubscribe
 
 class Sensors constructor(context: Context) {
     private val sensorManager: SensorManager =
@@ -38,11 +38,11 @@ class Sensors constructor(context: Context) {
             FlowableOnSubscribe<SensorEvent>
             { emitter ->
                 val listener = object : SensorEventListener {
-                    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+                    override fun onAccuracyChanged(p0: Sensor, p1: Int) {
                         TODO("Not yet implemented")
                     }
 
-                    override fun onSensorChanged(event: SensorEvent?) {
+                    override fun onSensorChanged(event: SensorEvent) {
                         if (emitter != null) {
                             emitter!!.onNext(event)
                         }
@@ -71,11 +71,11 @@ class Sensors constructor(context: Context) {
 
         return Flowable.create(FlowableOnSubscribe<SensorEvent> { emitter ->
             val listener = object : SensorEventListener {
-                override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+                override fun onAccuracyChanged(p0: Sensor, p1: Int) {
                     //TODO("Not yet implemented")
                 }
 
-                override fun onSensorChanged(event: SensorEvent?) {
+                override fun onSensorChanged(event: SensorEvent) {
                     if (emitter != null) {
                         emitter!!.onNext(event)
                     }

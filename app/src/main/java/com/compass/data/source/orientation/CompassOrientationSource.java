@@ -2,21 +2,19 @@ package com.compass.data.source.orientation;
 
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.text.GetChars;
 
 import com.compass.data.models.CompassOrientation;
 import com.compass.sensors.Sensors;
 import com.inspiringteam.reactivecompass.data.models.GeoPosition;
 import com.inspiringteam.reactivecompass.di.scopes.AppScoped;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.BackpressureStrategy;
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Single;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @AppScoped
 public class CompassOrientationSource implements OrientationDataSource {
@@ -35,7 +33,7 @@ public class CompassOrientationSource implements OrientationDataSource {
     private float lastDestinationAzimuth;
 
     private GeoPosition currentPosition = new GeoPosition(0, 0);
-    private GeoPosition destination  = new GeoPosition(0, 0);
+    private GeoPosition destination = new GeoPosition(0, 0);
 
     @Inject
     public CompassOrientationSource(Sensors sensors) {
@@ -63,13 +61,13 @@ public class CompassOrientationSource implements OrientationDataSource {
                             }
                         }
 
-                        if(sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD){
+                        if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
                             for (int i = 0; i < geomagnetic.length; i++) {
                                 geomagnetic[i] = alpha * geomagnetic[i] + (1 - alpha) * sensorEvent.values[i];
                             }
                         }
 
-                        if(SensorManager.getRotationMatrix(R, I, gravity, geomagnetic)){
+                        if (SensorManager.getRotationMatrix(R, I, gravity, geomagnetic)) {
                             float orientation[] = new float[3];
                             SensorManager.getOrientation(R, orientation);
 
@@ -83,7 +81,7 @@ public class CompassOrientationSource implements OrientationDataSource {
 
                             double destinationAzimuth = azimuth - bearing(currentPosition, destination);
 
-                            compassOrientation.setDestinationDirection((float)destinationAzimuth);
+                            compassOrientation.setDestinationDirection((float) destinationAzimuth);
 
                             compassOrientation.setLastDestinationDirection(lastDestinationAzimuth);
                         }
@@ -92,10 +90,13 @@ public class CompassOrientationSource implements OrientationDataSource {
                 });
     }
 
-
+    @Override
+    public void updateCurrentLocation(GeoPosition position) {
+        this.currentPosition = position;
+    }
 
     private double bearing(GeoPosition start
-                        , GeoPosition end){
+            , GeoPosition end) {
         double latRadians1 = Math.toRadians(start.getLatitude());
         double latRadians2 = Math.toRadians(end.getLatitude());
         double lngDiff = Math.toRadians(end.getLongtitude() - start.getLongtitude());

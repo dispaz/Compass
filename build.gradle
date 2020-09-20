@@ -31,8 +31,8 @@ ext {
     arch_version = "2.2.0"
     junit_version = "4.12"
     dagger_version = "2.23.2"
-    rxandroid_version = "3.0.0"
-    rxjava_version = "3.0.6"
+    rxandroid_version = "2.0.1"
+    rxjava_version = "2.1.7"
     play_services_version = "17.0.0"
     reactive_location_version = "1.0.5"
 }

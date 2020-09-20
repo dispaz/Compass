@@ -1,6 +1,7 @@
 package com.compass.ui.compass
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,11 @@ import com.compass.R
 import com.compass.databinding.CompassFragmentBinding
 import com.compass.di.scopes.ActivityScoped
 import com.compass.ui.compass.models.DirectionsUiModel
+import com.compass.ui.compass.models.LocationUiModel
 import dagger.android.support.DaggerFragment
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.disposables.CompositeDisposable
+import java.time.LocalDateTime
+import java.util.*
 import javax.inject.Inject
 
 @ActivityScoped
@@ -49,12 +53,21 @@ class CompassFragment @Inject constructor() : DaggerFragment() {
             { uiModel -> this.updateDirections(uiModel) },
             { showErrorMessage("error loading directions") }
         ))
+
+        subscriptions.add(viewModel.getLocationUiModel().subscribe(
+            { uiModel -> this.updateLocation(uiModel)},
+            { showErrorMessage("error getting location")}
+        ))
     }
 
-    fun updateDirections(directionsUiModel: DirectionsUiModel) {
+    private fun updateDirections(directionsUiModel: DirectionsUiModel) {
         val compassOrientation = directionsUiModel.compassOrientation
         rotateDirectionView(compassOrientation.polesDirection, compassOrientation.lastPolesDirection, binding.compass)
         binding.compassDeegree.text = "${compassOrientation.polesDirection.toInt()}°"
+    }
+
+    private fun updateLocation(locationUiModel: LocationUiModel){
+        Log.d("location", "${locationUiModel.location.latitude}, ${locationUiModel.location.longtitude} ${Calendar.getInstance()}")
     }
 
     fun showErrorMessage(msg: String) {
