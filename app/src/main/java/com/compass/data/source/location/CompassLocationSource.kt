@@ -19,7 +19,7 @@ class CompassLocationSource @Inject constructor(private val locationProvider: Rx
             return LocationRequest().apply {
                 interval = 5000
                 fastestInterval = 5000
-                smallestDisplacement = 10f
+                smallestDisplacement = 1f
                 priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             }
         }

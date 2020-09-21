@@ -104,11 +104,11 @@ class CompassFragment @Inject constructor() : DaggerFragment() {
     }
 
     private fun updateDestination(locationUiModel: LocationUiModel){
-        val destination = locationUiModel.location
+        //TODO("Not implemented (make ui )")
     }
 
     private fun updateDestinationDistance(distance: Float){
-        Log.d("distance", "$distance")
+        binding.destinationDistanceTextView.text = "${distance}m"
     }
 
     fun showErrorMessage(msg: String) {
