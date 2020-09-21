@@ -5,5 +5,5 @@
 <dimen name="static_dynamic_text_margin">5dp</dimen>
 <dimen name="compass_height">400dp</dimen>
 <dimen name="compas_degree_text_size">50sp</dimen>
-<dimen name="btn_destination_margin">10dp</dimen>
+<dimen name="btn_margin">10dp</dimen>
     </resources>

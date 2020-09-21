@@ -111,11 +111,22 @@
         android:src="@drawable/compass"
         app:layout_constraintTop_toBottomOf="@+id/compassDegreeData_layout" />
 
+    <ImageView
+        android:id="@+id/destinationArrow"
+        android:layout_width="100dp"
+        android:layout_height="240dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/compass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/compass" />
+
     <Button
         android:id="@+id/btnChooseDestination"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/btn_destination_margin"
+        android:layout_margin="@dimen/btn_margin"
         android:background="@drawable/btn_shape"
         android:text="Choose Destination"
         android:textColor="#FFF"

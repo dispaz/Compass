@@ -2,6 +2,7 @@ package com.compass.ui.compass
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,21 +64,51 @@ class CompassFragment @Inject constructor() : DaggerFragment() {
             { uiModel -> this.updateLocation(uiModel) },
             { showErrorMessage("error getting location") }
         ))
+
+        viewModel.getDestinationLocationUiModel()?.subscribe(
+            { uiModel -> this.updateDestination(uiModel) },
+            { showErrorMessage("error getting location") }
+        )?.let {
+            subscriptions.add(
+                it
+            )
+        }
+
+        subscriptions.add(viewModel.getDestinationDistance().subscribe(
+            {distance: Float -> this.updateDestinationDistance(distance)},
+            {showErrorMessage("error getting distance to destination")}
+        ))
     }
 
     private fun updateDirections(directionsUiModel: DirectionsUiModel) {
         val compassOrientation = directionsUiModel.compassOrientation
+
         rotateDirectionView(
             compassOrientation.polesDirection,
             compassOrientation.lastPolesDirection,
             binding.compass
         )
+
+        rotateDirectionView(
+            compassOrientation.destinationDirection,
+            compassOrientation.lastDestinationDirection,
+            binding.destinationArrow
+        )
+
         binding.compassDeegree.text = "${compassOrientation.polesDirection.toInt()}°"
     }
 
     private fun updateLocation(locationUiModel: LocationUiModel) {
         binding.latTextView.text = "${locationUiModel.location.latitude}"
-        binding.lngTextView.text = "${locationUiModel.location.longtitude}"
+        binding.lngTextView.text = "${locationUiModel.location.longitude}"
+    }
+
+    private fun updateDestination(locationUiModel: LocationUiModel){
+        val destination = locationUiModel.location
+    }
+
+    private fun updateDestinationDistance(distance: Float){
+        Log.d("distance", "$distance")
     }
 
     fun showErrorMessage(msg: String) {

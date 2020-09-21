@@ -61,4 +61,7 @@ dependencies {
     // Reactive location
     implementation "com.patloew.rxlocation:rxlocation:$rootProject.reactive_location_version"
     implementation "com.google.android.gms:play-services-location:$rootProject.play_services_version"
+
+    //Materials
+    implementation "androidx.cardview:cardview:$cardview_version"
 }

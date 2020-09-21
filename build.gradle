@@ -35,4 +35,5 @@ ext {
     rxjava_version = "2.1.7"
     play_services_version = "17.0.0"
     reactive_location_version = "1.0.5"
+    cardview_version = "1.0.0"
 }

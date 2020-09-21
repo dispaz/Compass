@@ -8,6 +8,7 @@ import com.compass.data.source.orientation.OrientationDataSource
 import com.inspiringteam.reactivecompass.data.models.GeoPosition
 import com.inspiringteam.reactivecompass.di.scopes.AppScoped
 import io.reactivex.Flowable
+import io.reactivex.Single
 import javax.inject.Inject
 
 @AppScoped
@@ -19,6 +20,18 @@ class CompassRepository @Inject constructor(
         return compassOrientationSource.getOrientation()
     }
 
+    override fun getDestinationPosition(): Single<GeoPosition> {
+        return compassOrientationSource.getDestinationPosition()
+    }
+
+    override fun getDestinationDistance(): Flowable<Float> {
+        return compassLocationSource.getLocation().flatMap {
+            geoPosition ->
+                updateCurrentLocation(geoPosition)
+                compassOrientationSource.getDestinationDistance()
+        }
+    }
+
     override fun getLocation(): Flowable<GeoPosition> {
         return compassLocationSource.getLocation()
             .flatMap { geoPosition ->
@@ -27,8 +40,14 @@ class CompassRepository @Inject constructor(
             }
     }
 
+
+
     override fun updateCurrentLocation(position: GeoPosition){
         compassOrientationSource.updateCurrentLocation(position)
+    }
+
+    override fun updateDestinationPosition(location: GeoPosition) {
+        compassOrientationSource.updateDestinationPosition(location)
     }
 
 
